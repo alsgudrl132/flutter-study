@@ -13,37 +13,38 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MainScreen(),
+      home: const MainScreen2(),
     );
   }
 }
 
 // Widget이란 앱의 모든 구성요소, 화면에 그려지는 모든것을 위젯으로 표현가능하다.
-class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+// StatelessWidget (상태가 없는 위젯) - 한 번 생성되면 내부데이터나 상태를 변경할 수 없고, UI를 그리기위한 정보만을 가짐
+
+class MainScreen2 extends StatefulWidget {
+  const MainScreen2({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text("나의 첫 앱"),), body: Text('안녕하세요'),);
-  }
+  State<MainScreen2> createState() => _MainScreen2State();
 }
 
+class _MainScreen2State extends State<MainScreen2> {
+  String msg = "안녕하세요";
 
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 3),() {
+      setState(() {
+        msg = "안녕하세요2";
+      });
+    },);
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(appBar: AppBar(title: Text("나의 첫 앱"),), body: Text(msg),);
+  }
+}
 
